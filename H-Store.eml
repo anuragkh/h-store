@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="ant_doxygen.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/ant_doxygen.jar!/"/>
+	</lib>
+	<lib name="ant-contrib.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/ant-contrib.jar!/"/>
+	</lib>
+	<lib name="ant-junit.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/ant-junit.jar!/"/>
+	</lib>
+	<lib name="ant-testability-explorer.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/ant-testability-explorer.jar!/"/>
+	</lib>
+	<lib name="ant.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/ant.jar!/"/>
+	</lib>
+	<lib name="commons-codec-1.5.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/commons-codec-1.5.jar!/"/>
+	</lib>
+	<lib name="commons-collections-3.2.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/commons-collections-3.2.1.jar!/"/>
+	</lib>
+	<lib name="commons-collections15-4.01.jar" scope="COMPILE">
+		<srcroot url="file://SourceJars/collections-generic-4.01-sources.jar"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/commons-collections15-4.01.jar!/"/>
+	</lib>
+	<lib name="commons-configuration-1.6.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/commons-configuration-1.6.jar!/"/>
+	</lib>
+	<lib name="commons-logging-1.1.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/commons-logging-1.1.1.jar!/"/>
+	</lib>
+	<lib name="commons-pool-1.5.5.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/commons-pool-1.5.5.jar!/"/>
+	</lib>
+	<lib name="emma.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/emma.jar!/"/>
+	</lib>
+	<lib name="japex.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/japex.jar!/"/>
+	</lib>
+	<lib name="jcommon-1.0.16.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jcommon-1.0.16.jar!/"/>
+	</lib>
+	<lib name="jfreechart-1.0.13.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jfreechart-1.0.13.jar!/"/>
+	</lib>
+	<lib name="jung-algorithms-2.0.jar" scope="COMPILE">
+		<srcroot url="file://SourceJars/jung-source/jung-algorithms-2.0-sources.jar"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jung-algorithms-2.0.jar!/"/>
+	</lib>
+	<lib name="jung-api-2.0.jar" scope="COMPILE">
+		<srcroot url="file://SourceJars/jung-source/jung-api-2.0-sources.jar"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jung-api-2.0.jar!/"/>
+	</lib>
+	<lib name="jung-graph-impl-2.0.jar" scope="COMPILE">
+		<srcroot url="file://SourceJars/jung-source/jung-graph-impl-2.0-sources.jar"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jung-graph-impl-2.0.jar!/"/>
+	</lib>
+	<lib name="jung-visualization-2.0.jar" scope="COMPILE">
+		<srcroot url="file://SourceJars/jung-source/jung-visualization-2.0-sources.jar"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jung-visualization-2.0.jar!/"/>
+	</lib>
+	<lib name="junit-4.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/junit-4.4.jar!/"/>
+	</lib>
+	<lib name="log4j-1.2.15.jar" scope="COMPILE">
+		<srcroot url="file://SourceJars/log4j-1.2.15-sources.jar"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/log4j-1.2.15.jar!/"/>
+	</lib>
+	<lib name="opencsv-2.3.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/opencsv-2.3.jar!/"/>
+	</lib>
+	<lib name="pmd-4.2.5.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/pmd-4.2.5.jar!/"/>
+	</lib>
+	<lib name="testability-explorer.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/testability-explorer.jar!/"/>
+	</lib>
+	<lib name="tools.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/tools.jar!/"/>
+	</lib>
+	<lib name="velocity-1.6.3-dep.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/velocity-1.6.3-dep.jar!/"/>
+	</lib>
+	<lib name="velocity-1.6.3.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/velocity-1.6.3.jar!/"/>
+	</lib>
+	<lib name="weka-3.6.3.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/weka-3.6.3.jar!/"/>
+	</lib>
+	<lib name="jsr305.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jsr305.jar!/"/>
+	</lib>
+	<lib name="snappy-1.0.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/snappy-1.0.4.jar!/"/>
+	</lib>
+	<lib name="mysql-connector-java-5.1.18-bin.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/mysql-connector-java-5.1.18-bin.jar!/"/>
+	</lib>
+	<lib name="gdata-client-1.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/gdata-client-1.0.jar!/"/>
+	</lib>
+	<lib name="gdata-client-meta-1.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/gdata-client-meta-1.0.jar!/"/>
+	</lib>
+	<lib name="gdata-core-1.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/gdata-core-1.0.jar!/"/>
+	</lib>
+	<lib name="gdata-media-1.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/gdata-media-1.0.jar!/"/>
+	</lib>
+	<lib name="mail.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/mail.jar!/"/>
+	</lib>
+	<lib name="google-oauth-client-1.8.0-beta.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/google-oauth-client-1.8.0-beta.jar!/"/>
+	</lib>
+	<lib name="jline-1.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/third_party/java/jars/jline-1.0.jar!/"/>
+	</lib>
+</component>

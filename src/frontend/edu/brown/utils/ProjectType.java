@@ -35,6 +35,7 @@ import java.util.Map;
 
 public enum ProjectType {
 
+    SLOG("sLog", "edu.berkeley.cs.benchmark.slog"),
     TPCC("TPC-C", "org.voltdb.benchmark.tpcc"),
     TPCE("TPC-E", "edu.brown.benchmark.tpce"),
     TM1("TM1", "edu.brown.benchmark.tm1"),
@@ -46,7 +47,7 @@ public enum ProjectType {
     LOCALITY("Locality", "edu.brown.benchmark.locality"),
     MAPREDUCE("MapReduce", "edu.brown.benchmark.mapreduce"),
     WIKIPEDIA("Wikipedia", "edu.brown.benchmark.wikipedia"),
-    YCSB("YCSB", "edu.brown.benchmark.ycsb"), 
+    YCSB("YCSB", "edu.brown.benchmark.ycsb"),
     VOTER("Voter", "edu.brown.benchmark.voter"),
     SMALLBANK("SmallBank", "edu.brown.benchmark.smallbank"),
     EXAMPLE("Example", "edu.brown.benchmark.example"),
@@ -76,7 +77,7 @@ public enum ProjectType {
      * Returns the package name for where this We need this because we need to
      * be able to dynamically reference various things from the 'src/frontend'
      * directory before we compile the 'tests/frontend' directory
-     * 
+     *
      * @return
      */
     public String getPackageName() {
@@ -99,7 +100,7 @@ public enum ProjectType {
     public static ProjectType get(String name) {
         return (ProjectType.name_lookup.get(name.toLowerCase().intern()));
     }
-    
+
     /**
      * Attempt to find a specific file from the supplemental files directory.
      * @param current
@@ -127,7 +128,7 @@ public enum ProjectType {
                 has_svn = true;
             }
         } // FOR
-        assert(has_svn) : "Unable to find files directory [last_dir=" + current.getAbsolutePath() + "]";  
+        assert(has_svn) : "Unable to find files directory [last_dir=" + current.getAbsolutePath() + "]";
         File next = new File(current.getCanonicalPath() + File.separator + "..");
         return (this.getProjectFile(next, target_dir, target_ext));
     }
