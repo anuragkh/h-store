@@ -81,7 +81,7 @@ public class SLOGClient extends BenchmarkComponent {
 
         this.initNumRecords = numRecords;
 
-        String[] dist = queryDistribution.split(",");
+        String[] dist = queryDistribution.split("\\|");
         double getMark = Double.parseDouble(dist[0]);
         double searchMark = getMark + Double.parseDouble(dist[1]);
         double insertMark = searchMark + Double.parseDouble(dist[2]);
