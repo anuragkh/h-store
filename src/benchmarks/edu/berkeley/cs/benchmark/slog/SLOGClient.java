@@ -180,7 +180,7 @@ public class SLOGClient extends BenchmarkComponent {
                 SearchQuery query = searchQueries.get(opNum % searchQueries.size());
                 procIdx = query.procIdx;
                 procName = query.procName;
-                params = new Object[] { searchQueries.get(opNum % searchQueries.size()) };
+                params = new Object[] { query.attributeValue };
                 break;
             case 2:
                 procIdx = 17;
