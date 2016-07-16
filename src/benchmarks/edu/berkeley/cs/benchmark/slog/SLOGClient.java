@@ -88,6 +88,7 @@ public class SLOGClient extends BenchmarkComponent {
         double deleteMark = insertMark + Double.parseDouble(dist[3]);
         assert (deleteMark == 1.0);
 
+        LOG.info("Loading insert records...");
         this.insertRecords = new ArrayList<String[]>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(insertsFile));
@@ -102,6 +103,7 @@ public class SLOGClient extends BenchmarkComponent {
             System.exit(-1);
         }
 
+        LOG.info("Loading search records...");
         this.searchQueries = new ArrayList<SearchQuery>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(queryFile));
@@ -119,6 +121,7 @@ public class SLOGClient extends BenchmarkComponent {
             System.exit(-1);
         }
 
+
         Random randGen = new Random();
         this.queryTypes = new ArrayList<Integer>();
         for (int i = 0; i < SLOGConstants.QUERY_COUNT; i++) {
@@ -134,12 +137,14 @@ public class SLOGClient extends BenchmarkComponent {
             }
         }
 
+        LOG.info("Loading keys...");
         this.keys = new ArrayList<Long>();
         for (int i = 0; i < SLOGConstants.QUERY_COUNT; i++) {
             this.keys.add(randGen.nextLong() % this.initNumRecords);
         }
 
         this.opNum = 0;
+        LOG.info("Loading done.");
     }
 
     @SuppressWarnings("unused")
