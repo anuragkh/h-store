@@ -108,7 +108,7 @@ public class SLOGClient extends BenchmarkComponent {
             String queryString;
             int numQueries = 0;
             while (numQueries < SLOGConstants.QUERY_COUNT && (queryString = br.readLine()) != null) {
-                String[] queryParams = queryString.split("\\|");
+                String[] queryParams = queryString.split("\t");
                 int fieldIdx = Integer.parseInt(queryParams[0] + 1);
                 String attr = queryParams[1];
                 this.searchQueries.add(new SearchQuery(fieldIdx, attr));
