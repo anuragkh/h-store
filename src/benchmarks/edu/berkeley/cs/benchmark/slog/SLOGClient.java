@@ -178,6 +178,7 @@ public class SLOGClient extends BenchmarkComponent {
                 break;
             case 1:
                 SearchQuery query = searchQueries.get(opNum % searchQueries.size());
+                LOG.info("Search query: " + query.procIdx);
                 procIdx = query.procIdx;
                 procName = query.procName;
                 params = new Object[] { query.attributeValue };
@@ -185,6 +186,7 @@ public class SLOGClient extends BenchmarkComponent {
             case 2:
                 procIdx = 17;
                 procName = "InsertRecord";
+                LOG.info("InsertRecord: " + opNum);
                 params = new Object[] { opNum, insertRecords.get(opNum % insertRecords.size()) };
                 break;
             case 3:
