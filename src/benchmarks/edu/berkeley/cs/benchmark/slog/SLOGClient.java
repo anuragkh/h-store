@@ -73,6 +73,12 @@ public class SLOGClient extends BenchmarkComponent {
             }
         } // FOR
 
+        // Log all parameters
+        LOG.info("Initial number of records: " + numRecords);
+        LOG.info("Query Distribution: " + queryDistribution);
+        LOG.info("Query file: " + queryFile);
+        LOG.info("Inserts file: " + insertsFile);
+
         this.initNumRecords = numRecords;
 
         String[] dist = queryDistribution.split(",");
