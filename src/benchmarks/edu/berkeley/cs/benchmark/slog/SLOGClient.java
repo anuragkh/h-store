@@ -169,7 +169,7 @@ public class SLOGClient extends BenchmarkComponent {
     public boolean runOnce() throws IOException {
 
         // Next query
-        int queryType = queryTypes.get(opNum);
+        int queryType = queryTypes.get(opNum % queryTypes.size());
         Object params[];
         int procIdx;
         String procName;
