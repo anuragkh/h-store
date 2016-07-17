@@ -41,7 +41,6 @@ public class InsertRecord extends VoltProcedure {
     );
 
     public VoltTable[] run(long id, String fields[]) {
-        long start = System.nanoTime();
         voltQueueSQL(insertStmt,
 		        id,
 		        fields[0], // FIELD1
@@ -61,9 +60,6 @@ public class InsertRecord extends VoltProcedure {
             fields[14], // FIELD15
             fields[15]  // FIELD16
         );
-        VoltTable[] result = voltExecuteSQL(true);
-        long end = System.nanoTime();
-        LOG.info("Latency for InsertRecord: " + (end - start));
-        return result;
+        return voltExecuteSQL(true);
     }
 }
