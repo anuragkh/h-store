@@ -6,6 +6,8 @@ import org.voltdb.SQLStmt;
 import org.voltdb.VoltProcedure;
 import org.voltdb.VoltTable;
 
+import java.util.Arrays;
+
 @ProcInfo(
     partitionInfo = "SLOGTABLE.SLOG_KEY: 0",
     singlePartition = true
@@ -35,6 +37,8 @@ public class InsertRecord extends VoltProcedure {
 
     public VoltTable[] run(long id, String fields[]) {
         assert(fields.length == SLOGConstants.NUM_COLUMNS);
+        System.out.println("Executing insert query: " + insertStmt + " with parameters: (" + id + ", " + Arrays
+          .toString(fields) + ")");
 		    voltQueueSQL(insertStmt,
 		        id,
 		        fields[0], // FIELD1
