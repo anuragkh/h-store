@@ -11,9 +11,10 @@ import org.voltdb.catalog.Table;
 import org.voltdb.client.ClientResponse;
 import org.voltdb.client.ProcedureCallback;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -109,7 +110,6 @@ public class SLOGClient extends BenchmarkComponent {
                 row[0] = 0;
                 System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS);
                 this.insertRecords.add(row);
-                LOG.info("Insert Record: " + Arrays.toString(row));
                 numInsertRecords++;
             }
         } catch (IOException e) {
@@ -127,7 +127,6 @@ public class SLOGClient extends BenchmarkComponent {
                 String[] queryParams = queryString.split("\t");
                 int fieldIdx = Integer.parseInt(queryParams[0]) + 1;
                 String attr = queryParams[1];
-                LOG.info("Search query: " + queryString + " => (" + fieldIdx + ", " + attr + ")");
                 this.searchQueries.add(new SearchQuery(fieldIdx, attr));
                 numQueries++;
             }
