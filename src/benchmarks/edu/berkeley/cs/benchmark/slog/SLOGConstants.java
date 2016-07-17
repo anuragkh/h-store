@@ -9,6 +9,6 @@ public abstract class SLOGConstants {
 
     // Table constants
     public static final String TABLE_NAME = "SLOGTABLE";
-    public static final int NUM_COLUMNS = 16;
+    public static final int NUM_COLUMNS = 17;
 
 }

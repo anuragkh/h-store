@@ -1,13 +1,9 @@
 package edu.berkeley.cs.benchmark.slog;
 
 import edu.brown.api.BenchmarkComponent;
-import edu.brown.catalog.CatalogUtil;
 import edu.brown.logging.LoggerUtil;
 import edu.brown.logging.LoggerUtil.LoggerBoolean;
 import org.apache.log4j.Logger;
-import org.voltdb.CatalogContext;
-import org.voltdb.VoltTable;
-import org.voltdb.catalog.Table;
 import org.voltdb.client.ClientResponse;
 import org.voltdb.client.ProcedureCallback;
 
@@ -95,11 +91,6 @@ public class SLOGClient extends BenchmarkComponent {
         double deleteMark = insertMark + Double.parseDouble(dist[3]);
         assert (deleteMark == 1.0);
 
-        final CatalogContext catalogContext = this.getCatalogContext();
-        final Table catalog_tbl = catalogContext.getTableByName(SLOGConstants.TABLE_NAME);
-        VoltTable table = CatalogUtil.getVoltTable(catalog_tbl);
-        LOG.info("Number of rows in table: " + table.getColumnCount());
-
         LOG.info("Loading insert records...");
         this.insertRecords = new ArrayList<Object[]>();
         try {
@@ -107,7 +98,7 @@ public class SLOGClient extends BenchmarkComponent {
             String valueString;
             int numInsertRecords = 0;
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
-                Object[] row = new Object[table.getColumnCount()];
+                Object[] row = new Object[SLOGConstants.NUM_COLUMNS];
                 row[0] = 0;
                 System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS);
                 this.insertRecords.add(row);
@@ -135,7 +126,6 @@ public class SLOGClient extends BenchmarkComponent {
             LOG.error("Could not open file " + queryFile + " : " + e.getMessage(), e);
             System.exit(-1);
         }
-
 
         Random randGen = new Random();
         this.queryTypes = new ArrayList<Integer>();
