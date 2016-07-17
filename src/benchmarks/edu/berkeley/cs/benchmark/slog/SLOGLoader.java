@@ -13,7 +13,6 @@ import org.voltdb.catalog.Table;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * SLOG Database Loader
@@ -89,7 +88,6 @@ public class SLOGLoader extends Loader {
                 row[0] = currentKey++;
 
                 System.arraycopy(valueStr.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS - 1);
-                LOG.info("Adding row " + Arrays.toString(row) + "with " + row.length + " values.");
                 table.addRow(row);
 
                 // insert this batch of tuples

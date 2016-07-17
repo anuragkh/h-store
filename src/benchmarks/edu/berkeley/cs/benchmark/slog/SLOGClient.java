@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -98,9 +99,8 @@ public class SLOGClient extends BenchmarkComponent {
             String valueString;
             int numInsertRecords = 0;
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
-
                 String[] fields = valueString.split("\\|");
-                LOG.info("Number of fields = " + fields.length);
+              LOG.info("Insert Record: " + Arrays.toString(fields) + "with " + fields.length + " values.");
                 this.insertRecords.add(fields);
                 numInsertRecords++;
             }
