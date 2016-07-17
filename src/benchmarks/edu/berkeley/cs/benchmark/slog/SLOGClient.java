@@ -189,7 +189,7 @@ public class SLOGClient extends BenchmarkComponent {
                 procIdx = 17;
                 procName = "InsertRecord";
                 long key = curKey++;
-                String[] fields = insertRecords.get(opNum % insertRecords.size())
+                String[] fields = insertRecords.get(opNum % insertRecords.size());
                 params = new Object[]{key, fields};
                 break;
             case 3:
