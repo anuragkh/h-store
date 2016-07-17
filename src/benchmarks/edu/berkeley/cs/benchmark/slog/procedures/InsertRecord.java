@@ -1,6 +1,7 @@
 package edu.berkeley.cs.benchmark.slog.procedures;
 
-import edu.berkeley.cs.benchmark.slog.SLOGConstants;
+import edu.brown.logging.LoggerUtil;
+import org.apache.log4j.Logger;
 import org.voltdb.ProcInfo;
 import org.voltdb.SQLStmt;
 import org.voltdb.VoltProcedure;
@@ -11,6 +12,12 @@ import org.voltdb.VoltTable;
     singlePartition = true
 )
 public class InsertRecord extends VoltProcedure {
+
+    private static final Logger LOG = Logger.getLogger(InsertRecord.class);
+    private static final LoggerUtil.LoggerBoolean debug = new LoggerUtil.LoggerBoolean();
+    static {
+      LoggerUtil.attachObserver(LOG, debug);
+    }
 
     public final SQLStmt insertStmt = new SQLStmt(
         "INSERT INTO SLOGTABLE VALUES (" +
@@ -34,7 +41,7 @@ public class InsertRecord extends VoltProcedure {
     );
 
     public VoltTable[] run(long id, String fields[]) {
-        assert(fields.length == SLOGConstants.NUM_COLUMNS - 1);
+        long start = System.nanoTime();
         voltQueueSQL(insertStmt,
 		        id,
 		        fields[0], // FIELD1
@@ -54,6 +61,9 @@ public class InsertRecord extends VoltProcedure {
             fields[14], // FIELD15
             fields[15]  // FIELD16
         );
-        return (voltExecuteSQL(true));
+        VoltTable[] result = voltExecuteSQL(true);
+        long end = System.nanoTime();
+        LOG.info("Latency for InsertRecord: " + (end - start));
+        return result;
     }
 }
