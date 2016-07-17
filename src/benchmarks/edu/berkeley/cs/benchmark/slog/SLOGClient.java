@@ -39,7 +39,7 @@ public class SLOGClient extends BenchmarkComponent {
     private final ArrayList<Integer> queryTypes;
     private final ArrayList<Long> keys;
     private final ArrayList<SearchQuery> searchQueries;
-    private final ArrayList<Object[]> insertRecords;
+    private final ArrayList<String[]> insertRecords;
 
     private int opNum;
     private int curKey;
@@ -92,16 +92,13 @@ public class SLOGClient extends BenchmarkComponent {
         assert (deleteMark == 1.0);
 
         LOG.info("Loading insert records...");
-        this.insertRecords = new ArrayList<Object[]>();
+        this.insertRecords = new ArrayList<String[]>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(insertsFile));
             String valueString;
             int numInsertRecords = 0;
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
-                Object[] row = new Object[SLOGConstants.NUM_COLUMNS];
-                row[0] = 0;
-                System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS - 1);
-                this.insertRecords.add(row);
+                this.insertRecords.add(valueString.split("\\|"));
                 numInsertRecords++;
             }
         } catch (IOException e) {
@@ -191,8 +188,9 @@ public class SLOGClient extends BenchmarkComponent {
             case 2:
                 procIdx = 17;
                 procName = "InsertRecord";
-                params = insertRecords.get(opNum % insertRecords.size());
-                params[0] = curKey++;
+                long key = curKey++;
+                String[] fields = insertRecords.get(opNum % insertRecords.size())
+                params = new Object[]{key, fields};
                 break;
             case 3:
                 procIdx = 18;

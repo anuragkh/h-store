@@ -8,8 +8,8 @@ public class SearchField9 extends VoltProcedure {
 
 	public final SQLStmt scanStmt = new SQLStmt("SELECT * FROM SLOGTABLE WHERE FIELD9 = ?");
 
-    public VoltTable[] run(long start, long count) {
-        voltQueueSQL(scanStmt, start, start+count);
-        return (voltExecuteSQL(true));
-    }
+  public VoltTable[] run(String value) {
+    voltQueueSQL(scanStmt, value);
+    return (voltExecuteSQL(true));
+  }
 }
