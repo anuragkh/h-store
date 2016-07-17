@@ -36,7 +36,7 @@ public class InsertRecord extends VoltProcedure {
     );
 
     public VoltTable[] run(long id, String fields[]) {
-        assert(fields.length == SLOGConstants.NUM_COLUMNS);
+        assert(fields.length == SLOGConstants.NUM_COLUMNS - 1);
         System.out.println("Executing insert query: " + insertStmt + " with parameters: (" + id + ", " + Arrays
           .toString(fields) + ")");
 		    voltQueueSQL(insertStmt,
