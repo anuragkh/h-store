@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -192,7 +191,6 @@ public class SLOGClient extends BenchmarkComponent {
                 procName = "InsertRecord";
                 long key = curKey++;
                 String[] fields = insertRecords.get(opNum % insertRecords.size());
-                LOG.info("Inserting record with key=" + key + " fields=" + Arrays.toString(fields));
                 params = new Object[]{ key, fields };
                 break;
             case 3:
