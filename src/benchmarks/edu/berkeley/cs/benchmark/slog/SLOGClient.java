@@ -107,7 +107,7 @@ public class SLOGClient extends BenchmarkComponent {
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
                 Object[] row = new Object[table.getColumnCount()];
                 row[0] = 0;
-                System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS - 1);
+                System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS);
                 this.insertRecords.add(row);
                 LOG.info("Insert Record: " + Arrays.toString(row));
                 numInsertRecords++;
@@ -125,7 +125,7 @@ public class SLOGClient extends BenchmarkComponent {
             int numQueries = 0;
             while (numQueries < SLOGConstants.QUERY_COUNT && (queryString = br.readLine()) != null) {
                 String[] queryParams = queryString.split("\t");
-                int fieldIdx = Integer.parseInt(queryParams[0] + 1);
+                int fieldIdx = Integer.parseInt(queryParams[0]) + 1;
                 String attr = queryParams[1];
                 LOG.info("Search query: " + queryString + " => (" + fieldIdx + ", " + attr + ")");
                 this.searchQueries.add(new SearchQuery(fieldIdx, attr));
