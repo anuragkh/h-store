@@ -100,7 +100,6 @@ public class SLOGClient extends BenchmarkComponent {
             int numInsertRecords = 0;
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
                 String[] fields = valueString.split("\\|");
-              LOG.info("Insert Record: " + Arrays.toString(fields) + "with " + fields.length + " values.");
                 this.insertRecords.add(fields);
                 numInsertRecords++;
             }
@@ -131,13 +130,13 @@ public class SLOGClient extends BenchmarkComponent {
         this.queryTypes = new ArrayList<Integer>();
         for (int i = 0; i < SLOGConstants.QUERY_COUNT; i++) {
             final double r = randGen.nextDouble();
-            if (r <= getMark) {
+            if (r < getMark) {
                 this.queryTypes.add(0);
-            } else if (r <= searchMark) {
+            } else if (r < searchMark) {
                 this.queryTypes.add(1);
-            } else if (r <= insertMark) {
+            } else if (r < insertMark) {
                 this.queryTypes.add(2);
-            } else if (r <= deleteMark) {
+            } else if (r < deleteMark) {
                 this.queryTypes.add(3);
             }
         }
@@ -193,7 +192,8 @@ public class SLOGClient extends BenchmarkComponent {
                 procName = "InsertRecord";
                 long key = curKey++;
                 String[] fields = insertRecords.get(opNum % insertRecords.size());
-                params = new Object[]{key, fields};
+                LOG.info("Inserting record with key=" + key + " fields=" + Arrays.toString(fields));
+                params = new Object[]{ key, fields };
                 break;
             case 3:
                 procIdx = 18;
