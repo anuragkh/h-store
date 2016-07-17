@@ -100,7 +100,7 @@ public class SLOGClient extends BenchmarkComponent {
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
                 Object[] row = new Object[SLOGConstants.NUM_COLUMNS];
                 row[0] = 0;
-                System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS);
+                System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS - 1);
                 this.insertRecords.add(row);
                 numInsertRecords++;
             }

@@ -87,7 +87,7 @@ public class SLOGLoader extends Loader {
             while (currentKey < initNumRecords && (valueStr = in.readLine()) != null) {
                 row[0] = currentKey++;
 
-                System.arraycopy(valueStr.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS);
+                System.arraycopy(valueStr.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS - 1);
                 table.addRow(row);
 
                 // insert this batch of tuples
