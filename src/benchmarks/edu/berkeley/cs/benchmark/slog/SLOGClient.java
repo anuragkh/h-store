@@ -98,7 +98,10 @@ public class SLOGClient extends BenchmarkComponent {
             String valueString;
             int numInsertRecords = 0;
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
-                this.insertRecords.add(valueString.split("\\|"));
+
+                String[] fields = valueString.split("\\|");
+                LOG.info("Number of fields = " + fields.length);
+                this.insertRecords.add(fields);
                 numInsertRecords++;
             }
         } catch (IOException e) {
