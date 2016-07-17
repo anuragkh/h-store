@@ -98,7 +98,7 @@ public class SLOGClient extends BenchmarkComponent {
         final CatalogContext catalogContext = this.getCatalogContext();
         final Table catalog_tbl = catalogContext.getTableByName(SLOGConstants.TABLE_NAME);
         VoltTable table = CatalogUtil.getVoltTable(catalog_tbl);
-        LOG.info("Number of rows in table: " + table.getRowCount());
+        LOG.info("Number of rows in table: " + table.getColumnCount());
 
         LOG.info("Loading insert records...");
         this.insertRecords = new ArrayList<Object[]>();
