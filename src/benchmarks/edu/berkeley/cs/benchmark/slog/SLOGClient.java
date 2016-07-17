@@ -1,14 +1,19 @@
 package edu.berkeley.cs.benchmark.slog;
 
 import edu.brown.api.BenchmarkComponent;
+import edu.brown.catalog.CatalogUtil;
 import edu.brown.logging.LoggerUtil;
 import edu.brown.logging.LoggerUtil.LoggerBoolean;
 import org.apache.log4j.Logger;
+import org.voltdb.CatalogContext;
+import org.voltdb.VoltTable;
+import org.voltdb.catalog.Table;
 import org.voltdb.client.ClientResponse;
 import org.voltdb.client.ProcedureCallback;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -37,9 +42,10 @@ public class SLOGClient extends BenchmarkComponent {
     private final ArrayList<Integer> queryTypes;
     private final ArrayList<Long> keys;
     private final ArrayList<SearchQuery> searchQueries;
-    private final ArrayList<String[]> insertRecords;
+    private final ArrayList<Object[]> insertRecords;
 
     private int opNum;
+    private int curKey;
 
     public static void main(String args[]) {
         BenchmarkComponent.main(SLOGClient.class, args, false);
@@ -88,14 +94,22 @@ public class SLOGClient extends BenchmarkComponent {
         double deleteMark = insertMark + Double.parseDouble(dist[3]);
         assert (deleteMark == 1.0);
 
+        final CatalogContext catalogContext = this.getCatalogContext();
+        final Table catalog_tbl = catalogContext.getTableByName(SLOGConstants.TABLE_NAME);
+        VoltTable table = CatalogUtil.getVoltTable(catalog_tbl);
+
         LOG.info("Loading insert records...");
-        this.insertRecords = new ArrayList<String[]>();
+        this.insertRecords = new ArrayList<Object[]>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(insertsFile));
             String valueString;
             int numInsertRecords = 0;
             while (numInsertRecords < SLOGConstants.QUERY_COUNT && (valueString = br.readLine()) != null) {
-                this.insertRecords.add(valueString.split("\\|"));
+                Object[] row = new Object[table.getColumnCount()];
+                row[0] = 0;
+                System.arraycopy(valueString.split("\\|"), 0, row, 1, SLOGConstants.NUM_COLUMNS - 1);
+                this.insertRecords.add(row);
+                LOG.info("Insert Record: " + Arrays.toString(row));
                 numInsertRecords++;
             }
         } catch (IOException e) {
@@ -103,7 +117,7 @@ public class SLOGClient extends BenchmarkComponent {
             System.exit(-1);
         }
 
-        LOG.info("Loading search records...");
+        LOG.info("Loading search queries...");
         this.searchQueries = new ArrayList<SearchQuery>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(queryFile));
@@ -113,6 +127,7 @@ public class SLOGClient extends BenchmarkComponent {
                 String[] queryParams = queryString.split("\t");
                 int fieldIdx = Integer.parseInt(queryParams[0] + 1);
                 String attr = queryParams[1];
+                LOG.info("Search query: " + queryString + " => (" + fieldIdx + ", " + attr + ")");
                 this.searchQueries.add(new SearchQuery(fieldIdx, attr));
                 numQueries++;
             }
@@ -144,6 +159,7 @@ public class SLOGClient extends BenchmarkComponent {
         }
 
         this.opNum = 0;
+        this.curKey = initNumRecords;
         LOG.info("Loading done.");
     }
 
@@ -178,7 +194,6 @@ public class SLOGClient extends BenchmarkComponent {
                 break;
             case 1:
                 SearchQuery query = searchQueries.get(opNum % searchQueries.size());
-                LOG.info("Search query: " + query.procIdx);
                 procIdx = query.procIdx;
                 procName = query.procName;
                 params = new Object[] { query.attributeValue };
@@ -186,8 +201,8 @@ public class SLOGClient extends BenchmarkComponent {
             case 2:
                 procIdx = 17;
                 procName = "InsertRecord";
-                LOG.info("InsertRecord: " + opNum);
-                params = new Object[] { opNum, insertRecords.get(opNum % insertRecords.size()) };
+                params = insertRecords.get(opNum % insertRecords.size());
+                params[0] = curKey++;
                 break;
             case 3:
                 procIdx = 18;
