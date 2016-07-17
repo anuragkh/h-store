@@ -53,7 +53,7 @@ public class SLOGClient extends BenchmarkComponent {
 
         String insertsFile = "~/data.inserts";
         String queryFile = "~/data.queries";
-        String queryDistribution = "0.34,0.33,0.33,0.00";
+        String queryDistribution = "0.34|0.33|0.33|0.00";
         int numRecords = SLOGConstants.NUM_RECORDS;
         for (String key : m_extraParams.keySet()) {
             String value = m_extraParams.get(key);
