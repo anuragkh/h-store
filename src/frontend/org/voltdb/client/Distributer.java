@@ -66,10 +66,10 @@ class Distributer {
     static {
         LoggerUtil.attachObserver(LOG, debug, trace);
     }
-    
+
     // collection of connections to the cluster
     private final ArrayList<NodeConnection> m_connections = new ArrayList<NodeConnection>();
-    
+
     /** SiteId -> NodeConnection */
     private final Map<Integer, Collection<NodeConnection>> m_connectionSiteXref = new HashMap<Integer, Collection<NodeConnection>>();
 
@@ -86,11 +86,11 @@ class Distributer {
     private final DBBPool m_pool;
 
     private final boolean m_useMultipleThreads;
-    
+
     private final boolean m_nanoseconds;
 
     private final String m_hostname;
-    
+
     private final ConcurrentHashMap<Thread, FastSerializer> m_serializers = new ConcurrentHashMap<Thread, FastSerializer>();
 
     /**
@@ -176,12 +176,12 @@ class Distributer {
 
         }
     }
-    
+
     class CallbackValues {
         final long time;
         final ProcedureCallback callback;
         final String name;
-        
+
         public CallbackValues(long time, ProcedureCallback callback, String name) {
             this.time = time;
             this.callback = callback;
@@ -213,7 +213,7 @@ class Distributer {
             m_hostId = (int)ids[0];
             m_connectionId = ids[1];
         }
-        
+
         @Override
         public String toString() {
             return (String.format("NodeConnection[id=%d, host=%s, port=%d]", m_hostId, m_hostname, m_port));
@@ -279,10 +279,10 @@ class Distributer {
                 LOG.warn("Got back null ClientResponse. Ignoring...");
                 return;
             }
-            
+
             final Long clientHandle = new Long(response.getClientHandle());
             final Status status = response.getStatus();
-            final long now = System.currentTimeMillis();
+            final long now = System.nanoTime();
             CallbackValues stuff = null;
             synchronized (this) {
                 stuff = m_callbacks.remove(clientHandle);
@@ -298,7 +298,7 @@ class Distributer {
                 ProcedureCallback cb = stuff.callback;
                 boolean abort = false;
                 boolean error = false;
-                
+
                 if (debug.val) {
                     Map<String, Object> m0 = new LinkedHashMap<String, Object>();
                     m0.put("Txn #", response.getTransactionId());
@@ -306,7 +306,7 @@ class Distributer {
                     m0.put("ClientHandle", clientHandle);
                     m0.put("RestartCounter", response.getRestartCounter());
                     m0.put("Callback", (cb != null ? cb.getClass().getSimpleName() : null));
-                    
+
                     Map<String, Object> m1 = new LinkedHashMap<String, Object>();
                     m1.put("Connection", this);
                     m1.put("Completed Invocations", m_invocationsCompleted);
@@ -314,7 +314,7 @@ class Distributer {
                     m1.put("Abort Invocations", m_invocationAborts);
                     LOG.debug("ClientResponse Information:\n" + StringUtil.formatMaps(m0, m1));
                 }
-                
+
                 if (status == Status.ABORT_USER || status == Status.ABORT_GRACEFUL) {
                     m_invocationAborts++;
                     abort = true;
@@ -323,11 +323,11 @@ class Distributer {
                     error = true;
                 }
                 int clusterRoundTrip = response.getClusterRoundtrip();
-                if (m_nanoseconds) clusterRoundTrip /= 1000000; 
+                if (m_nanoseconds) clusterRoundTrip /= 1000000;
                 if (clusterRoundTrip < 0) clusterRoundTrip = 0;
-                
+
                 this.updateStats(stuff.name, delta, clusterRoundTrip, abort, error, response.getRestartCounter());
-                
+
                 if (cb != null) {
                     response.setClientRoundtrip(delta);
                     try {
@@ -344,7 +344,7 @@ class Distributer {
             else {
                 LOG.warn(String.format("Failed to get callback for client handle #%d from %s",
                                        clientHandle, this, response.toString()
-                )); 
+                ));
             }
         }
 
@@ -485,7 +485,7 @@ class Distributer {
     Distributer() {
         this( 128, null, false, false, null);
     }
-    
+
     Distributer(
             int expectedOutgoingMessageSize,
             int arenaSizes[],
@@ -520,7 +520,7 @@ class Distributer {
         }
         m_hostname = hostname;
         m_nanoseconds = nanoseconds;
-        
+
         if (debug.val)
             LOG.debug(String.format("Created new Distributer for %s [multiThread=%s]",
                       m_hostname, m_useMultipleThreads));
@@ -560,7 +560,7 @@ class Distributer {
 
 //    void createConnection(String host, String program, String password) throws UnknownHostException, IOException {
 //        LOG.info(String.format("Creating a new connection [host=%s, program=%s]", host, program));
-//        
+//
 //        // HACK: If they stick the port # at the end of the host name, we'll extract
 //        // it out because we're generally nice people
 //        int port = Client.VOLTDB_SERVER_PORT;
@@ -586,7 +586,7 @@ class Distributer {
             LOG.error("Failed to get connection to " + host + ":" + port, (debug.val ? ex : null));
             throw new IOException(ex);
         }
-        if (debug.val) 
+        if (debug.val)
             LOG.debug("We now have an authenticated connection. Let's grab the socket...");
         final SocketChannel aChannel = (SocketChannel)connectionStuff[0];
         final long numbers[] = (long[])connectionStuff[1];
@@ -623,15 +623,15 @@ class Distributer {
                     nc = new ArrayList<NodeConnection>();
                     m_connectionSiteXref.put(site_id, nc);
                 }
-                nc.add(cxn);    
+                nc.add(cxn);
             } // SYNCH
         }
-        
+
         Connection c = m_network.registerChannel(aChannel, cxn);
         cxn.m_hostname = c.getHostname();
         cxn.m_port = port;
         cxn.m_connection = c;
-        if (debug.val) 
+        if (debug.val)
             LOG.debug("From what I can tell, we have a connection: " + cxn);
     }
 
@@ -655,7 +655,7 @@ class Distributer {
         throws NoConnectionsException {
         return this.queue(invocation, cb, expectedSerializedSize, ignoreBackpressure, null);
     }
-    
+
     boolean queue(
             StoredProcedureInvocation invocation,
             ProcedureCallback cb,
@@ -665,15 +665,15 @@ class Distributer {
         throws NoConnectionsException {
         NodeConnection cxn = null;
         boolean backpressure = true;
-        long now = System.currentTimeMillis();
-        
+        long now = System.nanoTime();
+
         final int totalConnections = m_connections.size();
 
         if (totalConnections == 0) {
             throw new NoConnectionsException("No connections.");
         }
-        
-        // If we were given a site_id, then we will want to grab a 
+
+        // If we were given a site_id, then we will want to grab a
         // random Connection to that site. This is so that we can send the
         // txn request directly to the site that presumably has all of the
         // data that the txn will need
@@ -692,10 +692,10 @@ class Distributer {
 //                 cxn = null;
 //            }
         }
-        
+
         if (trace.val) LOG.trace(invocation.toString() + " ::: ignoreBackpressure->" + ignoreBackpressure);
-        
-        // If we didn't get a direct site connection then we'll grab the next 
+
+        // If we didn't get a direct site connection then we'll grab the next
         // connection in our round-robin look up
         // Synchronization is necessary to ensure that m_connections is not modified
         // as well as to ensure that backpressure is reported correctly
@@ -720,7 +720,7 @@ class Distributer {
                     }
                 } // FOR
             } // SYNCH
-        } 
+        }
         if (backpressure) {
             if (trace.val) LOG.trace("Blocking thread on backpressure from " + cxn);
             cxn = null;
@@ -728,20 +728,20 @@ class Distributer {
                 s.backpressure(true);
             }
         }
-        
+
         /*
          * Do the heavy weight serialization outside the synchronized block.
          * createWork synchronizes on an individual connection which allows for more concurrency
          */
         if (cxn != null) {
-            if (debug.val) 
+            if (debug.val)
                 LOG.debug(String.format("Queuing new %s Request at %s [clientHandle=%d, siteId=%s]",
                           invocation.getProcName(), cxn, invocation.getClientHandle(), site_id));
-            
+
             if (m_useMultipleThreads) {
                 cxn.createWork(now, invocation.getClientHandle(), invocation.getProcName(), invocation, cb);
             } else {
-                
+
                 final FastSerializer fs = new FastSerializer(m_pool, expectedSerializedSize);
 //                FastSerializer fs = this.getSerializer();
 //                fs.reset();
@@ -770,7 +770,7 @@ class Distributer {
 
         return !backpressure;
     }
-    
+
     /**
      * Return a thread-safe FastSerializer
      * @return
@@ -872,7 +872,7 @@ class Distributer {
 
     @SuppressWarnings("unused")
     VoltTable getProcedureStats(final boolean interval) {
-        final Long now = System.currentTimeMillis();
+        final Long now = System.nanoTime();
         final VoltTable retval = new VoltTable(procedureStatsColumns);
 
         long totalInvocations = 0;
@@ -969,7 +969,7 @@ class Distributer {
     }
 
     VoltTable getConnectionStats(final boolean interval) {
-        final Long now = System.currentTimeMillis();
+        final Long now = System.nanoTime();
         final VoltTable retval = new VoltTable(connectionStatsColumns);
         final Map<Long, Pair<String,long[]>> networkStats =
                         m_network.getIOStats(interval);
@@ -1047,5 +1047,5 @@ class Distributer {
     public int getConnectionCount() {
         return m_connections.size();
     }
-    
+
 }
