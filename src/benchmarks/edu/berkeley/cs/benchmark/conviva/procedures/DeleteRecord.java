@@ -6,7 +6,7 @@ import org.voltdb.VoltProcedure;
 import org.voltdb.VoltTable;
 
 @ProcInfo(
-    partitionInfo = "CONVIVA.CONVIVA_KEY: 0",
+    partitionInfo = "CONVIVATABLE.CONVIVA_KEY: 0",
     singlePartition = true
 )
 public class DeleteRecord extends VoltProcedure {
