@@ -36,6 +36,7 @@ import java.util.Map;
 public enum ProjectType {
 
     SLOG("sLog", "edu.berkeley.cs.benchmark.slog"),
+    CONVIVA("Conviva", "edu.berkeley.cs.benchmark.conviva"),
     TPCC("TPC-C", "org.voltdb.benchmark.tpcc"),
     TPCE("TPC-E", "edu.brown.benchmark.tpce"),
     TM1("TM1", "edu.brown.benchmark.tm1"),
