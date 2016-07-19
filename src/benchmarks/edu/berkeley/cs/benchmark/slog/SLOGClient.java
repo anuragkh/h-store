@@ -102,6 +102,7 @@ public class SLOGClient extends BenchmarkComponent {
                 this.insertRecords.add(fields);
                 numInsertRecords++;
             }
+            br.close();
         } catch (IOException e) {
             LOG.error("Could not open file " + insertsFile + " : " + e.getMessage(), e);
             System.exit(-1);
@@ -120,6 +121,7 @@ public class SLOGClient extends BenchmarkComponent {
                 this.searchQueries.add(new SearchQuery(fieldIdx, attr));
                 numQueries++;
             }
+            br.close();
         } catch (IOException e) {
             LOG.error("Could not open file " + queryFile + " : " + e.getMessage(), e);
             System.exit(-1);
