@@ -42,7 +42,7 @@ public class ConvivaClient extends BenchmarkComponent {
     private final ArrayList<String[]> insertRecords;
 
     private int opNum;
-    private int curKey;
+    private long curKey;
 
     public static void main(String args[]) {
         BenchmarkComponent.main(ConvivaClient.class, args, false);
@@ -81,6 +81,7 @@ public class ConvivaClient extends BenchmarkComponent {
         LOG.info("Query Distribution: " + queryDistribution);
         LOG.info("Query file: " + queryFile);
         LOG.info("Inserts file: " + insertsFile);
+        LOG.info("Client ID: " + getClientId());
 
         this.initNumRecords = numRecords;
 
@@ -149,7 +150,7 @@ public class ConvivaClient extends BenchmarkComponent {
         }
 
         this.opNum = 0;
-        this.curKey = initNumRecords;
+        this.curKey = initNumRecords + this.getClientId() * Integer.MAX_VALUE;
         LOG.info("Loading done.");
     }
 
