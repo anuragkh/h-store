@@ -150,7 +150,9 @@ public class ConvivaClient extends BenchmarkComponent {
         }
 
         this.opNum = 0;
-        this.curKey = initNumRecords + this.getClientId() * Integer.MAX_VALUE;
+        long id = this.getClientId();
+        long multiplier = Integer.MAX_VALUE;
+        this.curKey = (long)initNumRecords + id * multiplier;
         LOG.info("Starting key = " + curKey);
         LOG.info("Loading done.");
     }
