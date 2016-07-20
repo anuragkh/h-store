@@ -65,6 +65,7 @@ src/catgen/out
 .project
 .cproject
 .settings
+.idea
 
 ## -------------------------------
 ## cscope files

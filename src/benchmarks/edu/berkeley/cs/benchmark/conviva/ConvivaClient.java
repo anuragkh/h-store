@@ -114,10 +114,8 @@ public class ConvivaClient extends BenchmarkComponent {
             String queryString;
             int numQueries = 0;
             while (numQueries < ConvivaConstants.QUERY_COUNT && (queryString = br.readLine()) != null) {
-                String[] queryParams = queryString.split("\t");
-                int fieldIdx = Integer.parseInt(queryParams[0]);
-                String attr = queryParams[1];
-                this.searchQueries.add(new SearchQuery(fieldIdx, attr));
+                String[] queryParts = queryString.split("\t");
+                searchQueries.add(new SearchQuery(Integer.parseInt(queryParts[0]), queryParts[1]));
                 numQueries++;
             }
             br.close();
@@ -185,9 +183,9 @@ public class ConvivaClient extends BenchmarkComponent {
                 params = new Object[] { keys.get(opNum % keys.size()) };
                 break;
             case 1:
-                SearchQuery query = searchQueries.get(opNum % searchQueries.size());
                 procIdx = 1;
                 procName = "SearchField";
+                SearchQuery query = searchQueries.get(opNum % searchQueries.size());
                 params = new Object[] { query.attrId, query.attributeValue };
                 break;
             case 2:
