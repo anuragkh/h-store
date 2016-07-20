@@ -27,10 +27,10 @@ public class ConvivaClient extends BenchmarkComponent {
     public class SearchQuery {
         SearchQuery(int fieldIdx, String param) {
             this.attrId = fieldIdx;
-            this.attributeValue = param;
+            this.attrValue = param;
         }
         public int attrId;
-        public String attributeValue;
+        public String attrValue;
     }
 
     private int initNumRecords;
@@ -186,7 +186,8 @@ public class ConvivaClient extends BenchmarkComponent {
                 procIdx = 1;
                 procName = "SearchField";
                 SearchQuery query = searchQueries.get(opNum % searchQueries.size());
-                params = new Object[] { query.attrId, query.attributeValue };
+                LOG.debug("attrId = " + query.attrId + ", attrValue = " + query.attrValue);
+                params = new Object[] { query.attrId, query.attrValue};
                 break;
             case 2:
                 procIdx = 2;
