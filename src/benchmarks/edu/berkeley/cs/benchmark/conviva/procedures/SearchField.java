@@ -115,6 +115,7 @@ public class SearchField extends VoltProcedure {
     };
 
   public VoltTable[] run(int attrId, String value) {
+    assert(attrId < searchStmt.length);
     voltQueueSQL(searchStmt[attrId], value);
     return (voltExecuteSQL(true));
   }
