@@ -26,12 +26,10 @@ public class ConvivaClient extends BenchmarkComponent {
 
     public class SearchQuery {
         SearchQuery(int fieldIdx, String param) {
-            this.procIdx = fieldIdx;
-            this.procName = "SearchField" + fieldIdx;
+            this.attrId = fieldIdx;
             this.attributeValue = param;
         }
-        public int procIdx;
-        public String procName;
+        public int attrId;
         public String attributeValue;
     }
 
@@ -117,7 +115,7 @@ public class ConvivaClient extends BenchmarkComponent {
             int numQueries = 0;
             while (numQueries < ConvivaConstants.QUERY_COUNT && (queryString = br.readLine()) != null) {
                 String[] queryParams = queryString.split("\t");
-                int fieldIdx = Integer.parseInt(queryParams[0]) + 1;
+                int fieldIdx = Integer.parseInt(queryParams[0]);
                 String attr = queryParams[1];
                 this.searchQueries.add(new SearchQuery(fieldIdx, attr));
                 numQueries++;
@@ -188,19 +186,19 @@ public class ConvivaClient extends BenchmarkComponent {
                 break;
             case 1:
                 SearchQuery query = searchQueries.get(opNum % searchQueries.size());
-                procIdx = query.procIdx;
-                procName = query.procName;
-                params = new Object[] { query.attributeValue };
+                procIdx = 1;
+                procName = "SearchField";
+                params = new Object[] { query.attrId, query.attributeValue };
                 break;
             case 2:
-                procIdx = 17;
+                procIdx = 2;
                 procName = "InsertRecord";
                 long key = curKey++;
                 String[] fields = insertRecords.get(opNum % insertRecords.size());
                 params = new Object[]{ key, fields };
                 break;
             case 3:
-                procIdx = 18;
+                procIdx = 3;
                 procName = "DeleteRecord";
                 params = new Object[] { keys.get(opNum % keys.size()) };
                 break;
