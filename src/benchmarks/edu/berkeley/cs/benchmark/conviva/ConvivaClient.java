@@ -186,7 +186,6 @@ public class ConvivaClient extends BenchmarkComponent {
                 procIdx = 1;
                 procName = "SearchField";
                 SearchQuery query = searchQueries.get(opNum % searchQueries.size());
-                LOG.debug("attrId = " + query.attrId + ", attrValue = " + query.attrValue);
                 params = new Object[] { query.attrId, query.attrValue};
                 break;
             case 2:
@@ -223,7 +222,6 @@ public class ConvivaClient extends BenchmarkComponent {
             // Increment the BenchmarkComponent's internal counter on the
             // number of transactions that have been completed
             incrementTransactionCounter(clientResponse, this.idx);
-
         }
     } // END CLASS
 
