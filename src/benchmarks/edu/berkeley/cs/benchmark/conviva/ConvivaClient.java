@@ -26,7 +26,7 @@ public class ConvivaClient extends BenchmarkComponent {
 
     public class SearchQuery {
         SearchQuery(int fieldIdx, String param) {
-            this.attrId = fieldIdx;
+            this.attrId = fieldIdx + 1;
             this.attrValue = param;
         }
         public int attrId;
