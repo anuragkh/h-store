@@ -221,6 +221,11 @@ public class ConvivaClient extends BenchmarkComponent {
         public void clientCallback(ClientResponse clientResponse) {
             // Increment the BenchmarkComponent's internal counter on the
             // number of transactions that have been completed
+            Exception e = clientResponse.getException();
+            if (e != null) {
+                LOG.error(e.getMessage());
+                e.printStackTrace();
+            }
             incrementTransactionCounter(clientResponse, this.idx);
         }
     } // END CLASS
