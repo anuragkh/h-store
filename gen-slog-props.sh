@@ -6,9 +6,9 @@ echo "## ------------------------------------------------------------
 
 builder = edu.berkeley.cs.benchmark.slog.SLOGProjectBuilder
 
-data_file = /home/ec2-user/data
-inserts_file = /home/ec2-user/data.inserts
-query_file = /home/ec2-user/data.queries
+data_file = /home/ec2-user/tpch
+inserts_file = /home/ec2-user/tpch.inserts
+query_file = /home/ec2-user/tpch.queries
 
 query_distribution=$query_distribution
 num_records=$num_records
